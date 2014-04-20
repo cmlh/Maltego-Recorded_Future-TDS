@@ -1,0 +1,66 @@
+This README provides a brief overview of how to install and use this freely distributed community version of the Recorded Future Maltego package.  This is provided as working examples showing how to integrate Recorded Future into your Maltego investigations. Also, for Maltego community version users please note that results are limited to 12.
+
+Requirements
+---------------------------
+1)  RF Query Token.  Please go to http://www.recordedfuture.com/contact/ to request a community version RF token. 
+2)  Python installed on your local system where the RF/Maltego transforms will run.
+3)  To use the RF CSV Import machine or transform, an RF CSV export file is required.  These are created from the recordedfuture.com SaaS application.  You need a recordedfuture.com account in order to create these exports.  A sample RF CSV export is provided with this package to demonstrate how RF exported data can be used within Maltego. 
+
+Installation
+---------------------------
+1) From Maltego client, goto Import->Import Configuration to import the RF entities,transforms, machines, and icons contained in the rf_maltego_incl_entities.mtz file.  After import, you should have 8 RF Entities, 4 Transforms, 3 Machines, and 4 Icons.  These Entities, Transforms, and Machines are described below.
+
+2) The default working directory for all of the RF Transforms are set to /usr/local/rf_maltego.  So, copy the RF *.py (APIUtil.py, MaltegoTransform.py, rf_csv_maltegoload.py, rf_ent2eve.py, rf_expand_event.py, rf_maltego_conv.py, rf_resolve_company.py) to this folder.  Otherwise, you will need to set the working directory for each of the RF tranforms to where you put these python files.  (NOTE:  MaltegoTranform.py included here was supplied by Patervo). 
+
+3) Edit APIUtil.py to insert your RF Query Token.  
+
+4) There is a sample RF Query Export CSV file included.  Copy this to a folder that can be seen by the Maltego application.  
+
+RF Entities
+---------------------------
+A Recorded Future category with 8 entities will be created after importing the mtz file.  When not started from a Machine, there are 3 parent entities that can be dragged onto a graph to start an investigation.   The other 5 entities are dynamically defined as a result of expanding one of these parent entities or running one of the RF machines.
+
+Top level parent entities that you would drag onto a graph to start an investigation.  
+  1)  Company Name  
+     Name of a company (e.g. Yahoo) to investigation.  Expands to a Company entity that can be further expanded to other RF entities.
+  2) RF Event 
+     When you drag this on as parent, one can enter an RF event name to query.  A subset of RF event names are provided at the end of this README.  This entity is also created dynamically by running RF machines or transforms. 
+  3) RF CSV 
+     Entity used to load an RF CSV export file.  An example CSV is provided.  When running the "Import Recorded Future CSV", a python dialog runs that will minimize by default.  Click the icon (e.g. small rocket ship with Python icon on Mac Dock) to select the CSV file to import.  
+
+The following entities are created dynamically when you expand one of the top level parent entities above or run one of the RF machines.  You would *not* drag these onto the graph as a parent node since these are created dynamically.  
+  1) Company
+  2) Product
+  3) Position
+  4) Organization
+  5) Technology
+
+
+RF Transforms
+--------------------------------
+
+   Display Name                     Unique Name                Entity Input Type      Script Name
+   --------------------------------------------------------------------------------------------------
+   Import Recorded Future CSV        recfut.RFImportCSV         RF CSV                  rf_csv_maltegoload.py
+   Expand Recorded Future entity     recfut.RFEntityExpand      Unknown                 rf_ent2eve.py
+   Expand Recorded Future event      recfut.RFEventExpand       RF Event                rf_expand_event.py
+   Resolve Recorded Future Company   recfut.ResolveRFCompany    Company Name            rf_resolve_company.py
+
+   NOTE:  The "Expand Recorded Future entity" will only work on the results of RF specific machines and transforms.  As described above, the dynamically created "eid" is a required field to this transform.  You will notice that the Entity Input Type is set to "Unknown".
+
+
+RF Machines
+--------------------------------
+  1)  RF Company Researcher (recfut.CompanyReseacher)
+      Resolves a Recorded Future company entity based on the a name input parameter.  It runs the recfut.ResolveRFCompany, recfut.RFEntityExpand, and recfut.RFExpandEvent tranforms.
+
+  2)  RF CSV Importer (recfut.ImportRFCSV) 
+      Parses RF CSV export file created from doing a Recorded Future investigation at recordedfuture.com.  Executes a filter that runs a python dialog to prompt user to enter the full pathname to the exported CSV file.  It then runs the recfut.RFExpandEvent transform.
+
+  3)  RF Expand Entities and Events (recfut.RFExpandEntityandEvents)
+Can not be run as a Standalone machine.  Must be run against an already RF entity that has already been created dynamically on the graph because of the Entity ID (eid) input requirement.  This machine runs both the recfut.RFEntityExpand and recfut.RFEventExpand.
+
+Subset of RF Event Types that can be entered in RF Event entity for expanding these events.
+----------------------------------------------------------------------------------------------------------
+Acquisition Announcement ArmedAttack BusinessTransaction Coup CyberAttack DiseaseOutbreak Election Entity Mention FamilyRelation Legislation MalwareThreat ManMadeDisaster Meeting Merger MilitaryManeuver NaturalDisaster NuclearMaterialTransaction OrganizationRelationship PersonCommunication PersonThreat PersonTravel PoliticalRelationship PressRelease Protest Quotation RadiologicalMaterialTransaction Speech Visit
+
