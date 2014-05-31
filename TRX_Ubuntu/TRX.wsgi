@@ -10,6 +10,7 @@ sys.path.append(os.path.dirname(__file__))
 
 from bottle import *
 from Maltego import *
+from trx_rf_expand_event import *
 
 #------> RF Expand Event Transform
 @route('/RFEvent', method='ANY')    
