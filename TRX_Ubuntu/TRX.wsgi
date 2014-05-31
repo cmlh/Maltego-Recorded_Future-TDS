@@ -11,9 +11,9 @@ sys.path.append(os.path.dirname(__file__))
 from bottle import *
 from Maltego import *
 
-#------> DNS2IP transform
+#------> RF Expand Event Transform
 @route('/RFEvent', method='ANY')    
-def DNS2IP():
+def RFEvent():
     if request.body.len>0:
         return(trx_rf_expand_event(MaltegoMsg(request.body.getvalue())))
         
