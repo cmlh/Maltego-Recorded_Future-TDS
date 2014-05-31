@@ -23,7 +23,5 @@ def rf2maltego(TRX, ents):
                 c_type = k
 
         ment = TRX.addEntity(c_type,ent['name'].encode('utf-8'))
-        ment..addProperty("eid","Entity ID", False, ent["id"]);
-        ment..addProperty("properties.rftype", "Entity Type", False, ent["type"])
-
-
+        ment.addProperty("eid","Entity ID", False, ent["id"]);
+        ment.addProperty("properties.rftype", "Entity Type", False, ent["type"])
