@@ -9,7 +9,7 @@ from rf_maltego_conv import *
 
 def trx_rf_expand_event(m):
     TRX = MaltegoTransform();
-    eid = TRX.m.getProperty("eid")
+    eid = m.getProperty("eid")
 
     rfapi = APIUtil()
 
