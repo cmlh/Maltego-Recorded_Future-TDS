@@ -12,7 +12,7 @@ types = {'maltego.Person':'Person',
         'maltego.Twit':'Username'
         }
 
-def rf2maltego(mt, ents):
+def rf2maltego(TRX, ents):
     """Use the Recorded Future entity type to transform into a Maltego entity. Default is maltego.Phrase."""
     for ent in ents:
         c_type = "maltego.Phrase"
@@ -22,8 +22,8 @@ def rf2maltego(mt, ents):
             elif v == ent['type']:
                 c_type = k
 
-        ment = mt.addEntity(c_type,ent['name'].encode('utf-8'))
-        ment.addAdditionalFields("eid","Entity ID", False, ent["id"]);
-        ment.addAdditionalFields("properties.rftype", "Entity Type", False, ent["type"])
+        ment = TRX.addEntity(c_type,ent['name'].encode('utf-8'))
+        ment..addProperty("eid","Entity ID", False, ent["id"]);
+        ment..addProperty("properties.rftype", "Entity Type", False, ent["type"])
 
 
