@@ -1,7 +1,7 @@
 import json, urllib, urllib2
 
 class APIUtil:
-    _url = 'http://api.recordedfuture.com/query/?'
+    _url = 'https://api.recordedfuture.com/query/?'
     _headers = {"Accept-encoding": "gzip"}
     _token = ""
 
