@@ -1,3 +1,5 @@
+import HTMLParser
+
 # Specific types that we want to convert.
 types = {'maltego.Person':'Person',
         'recfut.Company':['Company', 'OrgEntity'],
@@ -22,6 +24,10 @@ def rf2maltego(TRX, ents):
             elif v == ent['type']:
                 c_type = k
 
+        html_parser = HTMLParser.HTMLParser()
+        ent['name'] = html_parser.escape(ent['name'])
         ment = TRX.addEntity(c_type,ent['name'].encode('utf-8'))
+        ent["id"] = html_parser.escape(ent["id"])
         ment.addProperty("eid","Entity ID", False, ent["id"]);
+        ent["type"] = html_parser.escape(ent["type"])        
         ment.addProperty("properties.rftype", "Entity Type", False, ent["type"])
