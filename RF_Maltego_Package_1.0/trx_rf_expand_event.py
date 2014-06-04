@@ -24,6 +24,9 @@ def trx_rf_expand_event(m):
     seen_ids = set()
     seen_ids.add(eid)
     for ceid, ent in rfapi.query(reference_query).get("entities", {}).items():
+        TRX.addUIMessage('Query to api.recordedfuture.com\n\t',UIM_DEBUG)
+        url_query = rfapi.query_url(reference_query)
+        TRX.addUIMessage(url_query,UIM_DEBUG)
         if ceid not in seen_ids:
             ent["id"] = ceid
             ents.append(ent)

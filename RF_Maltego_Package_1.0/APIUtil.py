@@ -12,6 +12,11 @@ class APIUtil:
 
     def __init__(self):
         pass
+    
+    def query_url(self, q):
+        q["token"] = self._token
+        url_q = urllib.urlencode({"q":json.dumps(q)})
+        return url_q
 
     def query(self, q):
         """Perform a standard query."""
