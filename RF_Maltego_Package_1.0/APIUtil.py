@@ -16,7 +16,9 @@ class APIUtil:
     def query_url(self, q):
         q["token"] = self._token
         url_q = urllib.urlencode({"q":json.dumps(q)})
+        url_q = urllib2.unquote(url_q).decode('utf8')
         url_q = str(url_q)
+        url_q = self._url+url_q       
         return url_q
 
     def query(self, q):

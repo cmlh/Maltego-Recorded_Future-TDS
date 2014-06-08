@@ -23,9 +23,10 @@ def trx_rf_expand_event(m):
     ents = []
     seen_ids = set()
     seen_ids.add(eid)
+    # Remove two lines in production i.e. debug Maltego Messages
+    rf_api_url_query = rfapi.query_url(reference_query)
+    TRX.addUIMessage(rf_api_url_query,UIM_DEBUG)
     for ceid, ent in rfapi.query(reference_query).get("entities", {}).items():
-        rf_api_url_query = "https://api.recordedfuture.com/query?" + rfapi.query_url(reference_query)
-        TRX.addUIMessage(rf_api_url_query,UIM_DEBUG)
         if ceid not in seen_ids:
             ent["id"] = ceid
             ents.append(ent)
