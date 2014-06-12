@@ -1,5 +1,15 @@
 from xml.sax.saxutils import escape
 
+__author__ = 'Mike Mohler Filip Reesalu'
+__copyright__ = 'Copyright 2014, Recorded Future'
+__credits__ = []
+
+__license__ = 'Apache'
+__version__ = '1.1'
+__maintainer__ = 'Christian Heinrich'
+__email__ = 'christian.heinrich@cmlh.id.au'
+__status__ = 'Production'
+
 # Specific types that we want to convert.
 types = {'maltego.Person':'Person',
         'recfut.Company':['Company', 'OrgEntity'],
@@ -14,7 +24,7 @@ types = {'maltego.Person':'Person',
         'maltego.Twit':'Username'
         }
 
-def rf2maltego(TRX, ents):
+def trx_rf2maltego(TRX, ents):
     """Use the Recorded Future entity type to transform into a Maltego entity. Default is maltego.Phrase."""
     for ent in ents:
         c_type = "maltego.Phrase"
